@@ -222,10 +222,28 @@ var SwipeView = (function (window, document) {
 				this.masterPages[2].dataset.upcomingPageIndex = this.page;
 				this.masterPages[0].dataset.upcomingPageIndex = this.page == this.options.numberOfPages-1 ? 0 : this.page + 1;
 			}
-			
+
+			this.__checkVisibility();
 			this.__flip();
 		},
-		
+
+		__checkVisibility: function() {
+			var n = this.options.numberOfPages;
+			var leftMasterPage = (this.currentMasterPage - 1) % 3;
+			var rightMasterPage = (this.currentMasterPage + 1) % 3;
+			if (!this.options.loop) {
+				for (var i = 0; i < 3; i++) {
+					this.masterPages[i].style.visibility = '';
+				}
+				if (this.page == 0) {
+					this.masterPages[leftMasterPage].style.visibility = 'hidden';
+				}
+				if (this.page == n - 1) {
+					this.masterPages[rightMasterPage].style.visibility = 'hidden';
+				}
+			}
+		},
+
 		next: function () {
 			if (!this.options.loop && this.x == this.maxX) return;
 			
