@@ -176,6 +176,7 @@ var SwipeView = (function (window, document) {
 		updatePageCount: function (n) {
 			this.options.numberOfPages = n;
 			this.maxX = -this.options.numberOfPages * this.pageWidth + this.wrapperWidth;
+			this.goToPage(this.page); // redraw master pages
 		},
 		
 		goToPage: function (p) {
